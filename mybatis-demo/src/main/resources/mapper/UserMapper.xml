@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--面向接口编程，绑定对应的接口-->
+<mapper namespace="com.colter.demo.mapper.UserMapper">
+    <resultMap type="User" id="userResultMap">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="insertTime" column="insert_time"
+                />
+        <result property="updateTime" column="insert_time"
+               />
+    </resultMap>
+
+    <select id="getUserById" resultMap="userResultMap" parameterType="int">
+        select *
+        from user_tbl
+        where id = #{id}
+    </select>
+</mapper>
