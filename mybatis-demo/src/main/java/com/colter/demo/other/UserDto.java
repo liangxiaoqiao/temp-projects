@@ -1,16 +1,19 @@
-package com.colter.demo.entity;
+package com.colter.demo.other;
 
+import com.colter.demo.config.MySerializable;
+import com.colter.demo.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.springframework.beans.BeanUtils;
 
 import java.time.ZonedDateTime;
 
 /**
  * @author liangchao
- * created on 2019/4/6 21:59
+ * created on 4/7/2019 1:51 PM
  * desc:
  */
-public class User {
-
+public class UserDto {
     private long id;
     private long userId;
     private String userName;
@@ -68,15 +71,18 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                ", insertTime=" + insertTime +
-                ", updateTime=" + updateTime +
-                '}';
+    public UserDto(User user) {
+        BeanUtils.copyProperties(user, this);
+    }
+
+    @JsonSerialize(using = MySerializable.class)
+    private Other other;
+
+    public Other getOther() {
+        return other;
+    }
+
+    public void setOther(Other other) {
+        this.other = other;
     }
 }

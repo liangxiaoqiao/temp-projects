@@ -1,12 +1,14 @@
 package com.colter.demo.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import org.springframework.context.annotation.Bean;
+import com.colter.demo.entity.User;
+import com.colter.demo.mapper.UserMapper;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import java.io.IOException;
 
 /**
  * @author liangchao
@@ -15,14 +17,43 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  */
 @Configuration
 public class JsonConfig {
-
-    @Bean
-    public MappingJackson2HttpMessageConverter converter() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.registerModule(new ParameterNamesModule());
-        mapper.registerModule(new Jdk8Module());
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
-        return converter;
-    }
+    //
+//    @Bean
+//    @Primary
+//    @Order(Ordered.HIGHEST_PRECEDENCE)
+//    public Jackson2ObjectMapperBuilder converter() {
+//        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.registerModule(new JavaTimeModule());
+//        mapper.registerModule(new ParameterNamesModule());
+//        mapper.registerModule(new Jdk8Module());
+//        SimpleModule simpleModule = new SimpleModule();
+//        simpleModule.addSerializer(Other.class, new MySerializable());
+//        mapper.registerModule(simpleModule);
+//        builder.configure(mapper);
+//        return builder;
+////        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
+////        return converter;
+//    }
+//
+//    @Bean
+//    @Primary
+//    public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
+//        ObjectMapper mapper = new ObjectMapper();
+//        mapper.registerModule(new JavaTimeModule());
+//        mapper.registerModule(new ParameterNamesModule());
+//        mapper.registerModule(new Jdk8Module());
+//        SimpleModule simpleModule = new SimpleModule();
+//        simpleModule.addSerializer(Other.class, new MySerializable());
+//        mapper.registerModule(simpleModule);
+//
+//        return mapper;
+//    }
+//
+//    @Bean
+//    public Module getModule() {
+//        SimpleModule simpleModule = new SimpleModule();
+//        simpleModule.addSerializer(Other.class, new MySerializable());
+//        return simpleModule;
+//    }
 }

@@ -1,8 +1,12 @@
 package com.demo.test;
 
+import com.colter.demo.other.Other;
+import com.colter.demo.other.UserDto;
+import com.colter.demo.config.MySerializable;
 import com.colter.demo.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
@@ -11,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * @author liangchao
@@ -33,7 +36,12 @@ public class JsonTest {
         mapper.registerModule(new JavaTimeModule());
         mapper.registerModule(new ParameterNamesModule());
         mapper.registerModule(new Jdk8Module());
-        String result = mapper.writeValueAsString(user);
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Other.class, new MySerializable());
+        mapper.registerModule(simpleModule);
+        UserDto dto = new UserDto(user);
+        dto.setOther(new Other("a", "b"));
+        String result = mapper.writeValueAsString(dto);
         System.out.println(result);
     }
 }
