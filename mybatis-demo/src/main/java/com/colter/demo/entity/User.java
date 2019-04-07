@@ -1,5 +1,7 @@
 package com.colter.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.ZonedDateTime;
 
 /**
@@ -13,7 +15,9 @@ public class User {
     private long userId;
     private String userName;
     private String password;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private ZonedDateTime insertTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private ZonedDateTime updateTime;
 
     public long getId() {

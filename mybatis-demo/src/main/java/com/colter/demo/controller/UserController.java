@@ -1,6 +1,5 @@
 package com.colter.demo.controller;
 
-import com.colter.demo.dto.UserDto;
 import com.colter.demo.entity.User;
 import com.colter.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,9 @@ public class UserController {
 
     @RequestMapping(value = "/getUser")
     @ResponseBody
-    public UserDto getUser(int id) {
+    public User getUser(int id) {
         User user = userService.getUserById(id);
-        return new UserDto(user);
+        return user;
     }
 
 
